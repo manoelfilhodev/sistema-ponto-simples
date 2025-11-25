@@ -3,35 +3,43 @@
 namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, Notifiable;
+    use Notifiable;
 
-    protected $table = '_tb_usuarios'; // tabela correta
-    protected $primaryKey = 'id_user'; // chave primária
-    public $timestamps = true; // já que você tem created_at e updated_at
+    protected $table = '_tb_users';
 
     protected $fillable = [
         'nome',
+        'cpf',
         'email',
-        'password',
-        'unidade_id',
-        'tipo',
-        'status',
-        'nivel'
+        'senha',
+        'ativo',
+        'foto_face',
+        'cliente_id',
     ];
 
     protected $hidden = [
-        'password',
-        'remember_token'
+        'senha', // esconder senha nas respostas
     ];
-    
-    public function contagens()
-{
-    return $this->hasMany(ContagemItem::class, 'usuario_id', 'id_user');
-}
-}
 
+    // Laravel usa getAuthPassword para saber qual coluna é a senha
+    public function getAuthPassword()
+    {
+        return $this->senha;
+    }
+
+    // Relacionamento com Cliente
+    public function cliente()
+    {
+        return $this->belongsTo(Cliente::class, 'cliente_id');
+    }
+
+    // Relacionamento com Pontos
+    public function pontos()
+    {
+        return $this->hasMany(Ponto::class, 'user_id');
+    }
+}
