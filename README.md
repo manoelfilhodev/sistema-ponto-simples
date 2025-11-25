@@ -1,4 +1,4 @@
-# 📦 Systex WMS 4.0  
+# 🕒 Systex — Sistema de Ponto Simples  
 
 [![Laravel](https://img.shields.io/badge/Laravel-11.x-red?logo=laravel)](https://laravel.com/)  
 [![PHP](https://img.shields.io/badge/PHP-8.2-blue?logo=php)](https://www.php.net/)  
@@ -7,62 +7,63 @@
 [![Composer](https://img.shields.io/badge/Composer-2.x-orange?logo=composer)](https://getcomposer.org/)  
 [![License](https://img.shields.io/badge/license-Systex%20Proprietary-lightgrey)](#-licença)  
 
-Sistema de **Gestão de Armazéns (WMS)** desenvolvido em **Laravel 11** e **MySQL**, projetado para operações logísticas complexas.  
-O WMS 4.0 cobre todos os processos logísticos, incluindo **recebimento, armazenagem, separação, expedição, inventário, contagem de paletes e kits**, oferecendo painéis de produtividade e relatórios avançados.  
+Sistema de **registro e gestão de ponto** desenvolvido em **Laravel 11**, projetado para empresas que desejam uma solução simples, segura e eficiente para controle de jornada.  
+O colaborador registra o ponto pelo **mobile (foto + geolocalização)** e o administrador gerencia tudo pelo **painel web**, com relatórios, filtros e exportações.
 
 ---
 
 ## 🚀 Tecnologias Utilizadas
-- [Laravel 11](https://laravel.com/)  
-- [PHP 8.2+](https://www.php.net/)  
-- [MySQL 8](https://dev.mysql.com/)  
-- [Composer](https://getcomposer.org/)  
-- [Node.js + Vite](https://vitejs.dev/)  
-- [TailwindCSS / Template Hyper](https://tailwindcss.com/)  
+- **Laravel 11**  
+- **PHP 8.2+**  
+- **MySQL 8**  
+- **Composer**  
+- **Node.js + Vite**  
+- **TailwindCSS**  
 
 ---
 
 ## 📂 Estrutura de Pastas
 
+```
 /app
-/Http/Controllers # Lógica dos módulos
-/Models # Modelos do Eloquent
-/Services # Regras de negócio
-/config # Configurações
-/database # Migrations e seeds
-/public # Ponto de entrada e assets
-/resources/views # Views Blade (Hyper)
-/routes # Rotas web/api
+   /Http/Controllers      # Lógica do sistema de ponto
+   /Models                # Modelos do Eloquent
+/config                   # Configurações gerais
+/database                 # Migrations
+/public                   # Ponto de entrada, CSS, JS e uploads
+/resources/views/ponto    # Views exclusivas do sistema de ponto
+/routes                   # Rotas web e API
+```
 
-🛠️ Roadmap
-
- Módulo de frota integrado ao WMS
-
- Integração com Power BI
-
- App Mobile (Flutter)
-
- Multi-tenant SaaS
-
- 
 ---
 
 ## ⚙️ Funcionalidades
-✅ Gestão de Recebimento (com conferência e divergências)  
-✅ Gestão de Armazenagem e Separação  
-✅ Controle de Estoque e Inventário  
-✅ Expedição e Relatórios de Saída  
-✅ Contagem de Paletes e Kits  
-✅ Relatórios Gerenciais com gráficos (produtividade, comparativos, etc.)  
-✅ Multiusuário com permissões por setor  
-✅ Compatível com coletores de dados (PWA offline/online)  
+
+### 🎯 Mobile / PWA
+- Registro por **CPF**
+- Tira **foto** no momento do ponto
+- Captura de **data e hora**
+- Captura de **latitude e longitude**
+- Bloqueio de usuário desativado
+- Suporte a uso em **tablet da empresa (PWA)**
+
+### 🖥️ Painel Web
+- Dashboard completo
+- Cadastro de colaboradores
+- Bloquear e liberar acesso
+- Relatórios com filtros avançados
+- Exportação **Excel e PDF**
+- Histórico de fotos e batidas
+- Filtros por período, colaborador e cliente
 
 ---
 
 ## 📊 Dashboard
-- Gráficos de produtividade por setor  
-- Indicadores de separação, armazenagem e expedição  
-- KPIs em tempo real  
+- Batidas do dia  
+- Total por período  
+- Últimos registros  
+- Resumo por colaborador  
+- Indicadores de presença e ausência  
 
 ---
 
@@ -70,45 +71,49 @@ O WMS 4.0 cobre todos os processos logísticos, incluindo **recebimento, armazen
 
 ### Pré-requisitos
 - PHP 8.2+
-- Composer
+- Composer 2.x
 - MySQL 8
-- Node.js (com NPM ou Yarn)
+- Node.js 18+
 
 ### Passos
+
 ```bash
 # Clonar o repositório
-git clone https://github.com/systex/wms4.0.git
+git clone https://github.com/manoelfilhodev/sistema-ponto-simples.git
 
 # Entrar no diretório
-cd wms4.0
+cd sistema-ponto-simples
 
-# Instalar dependências do Laravel
+# Instalar dependências do back-end
 composer install
 
 # Instalar dependências do front-end
-npm install && npm run build
+npm install && npm run dev
 
-# Criar arquivo de configuração
+# Criar arquivo .env
 cp .env.example .env
 
-# Gerar key da aplicação
+# Gerar key
 php artisan key:generate
 
-# Configurar banco e rodar migrations
-php artisan migrate --seed
+# Rodar migrations
+php artisan migrate
 
-# Subir servidor local
+# Iniciar o servidor
 php artisan serve
+```
 
+---
 
-📜 Licença
+## 📜 Licença
 
-Este projeto é de uso interno da Systex Sistemas Inteligentes.
-Não é permitido uso comercial sem autorização.
+Este projeto é de uso interno da **Systex Sistemas Inteligentes**.  
+Não é permitida a reprodução ou uso comercial sem autorização.
 
-👨‍💻 Autor
+---
 
-Systex Sistemas Inteligentes
-🌐 systex.com.br
+## 👨‍💻 Autor
 
-📧 manoel.filho@systex.com.br
+**Systex Sistemas Inteligentes**  
+🌐 systex.com.br  
+📧 manoel.filho.mf@  
