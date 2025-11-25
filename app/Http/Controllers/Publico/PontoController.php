@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 
 class PontoController extends Controller
 {
+
     public function bater()
     {
         return view('ponto.bater-cpf');

@@ -3,36 +3,27 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
-    public function loginForm()
+    public function showLoginForm()
     {
-        return view('auth.login');
+        return view('painel.auth.login');
     }
 
     public function login(Request $request)
     {
         $request->validate([
-            'cpf' => 'required',
-            'senha' => 'required',
+            'email'    => 'required',
+            'password' => 'required'
         ]);
 
-        if (Auth::attempt([
-            'cpf' => $request->cpf,
-            'senha' => $request->senha
-        ])) {
+        if (Auth::attempt($request->only('email', 'password'))) {
             return redirect()->route('painel.dashboard');
         }
 
-        return back()->with('error', 'CPF ou senha incorretos.');
-    }
-
-    public function logout()
-    {
-        Auth::logout();
-        return redirect()->route('login');
+        return back()->withErrors(['email' => 'Credenciais inválidas']);
     }
 }

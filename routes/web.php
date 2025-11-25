@@ -13,7 +13,10 @@ use App\Http\Controllers\Painel\RelatorioController;
 use App\Http\Controllers\Painel\ConfiguracaoController;
 
 // ---------- PÚBLICO (sem login) ----------
-Route::get('/', [PontoController::class, 'index'])->name('ponto.home');
+Route::get('/', function () {
+    return redirect()->route('login');
+});
+
 
 Route::prefix('ponto')->group(function () {
     Route::get('/bater/facial', [PontoController::class, 'baterFacial'])->name('ponto.bater.facial');
