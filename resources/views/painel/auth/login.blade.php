@@ -10,8 +10,22 @@
     </p>
 </div>
 
-@if(session('error'))
-    <div class="alert alert-danger">{{ session('error') }}</div>
+{{-- ============================== --}}
+{{-- ALERTAS DE ERRO / SUCESSO --}}
+{{-- ============================== --}}
+
+@if (session('error'))
+    <div class="alert alert-danger d-flex align-items-center shadow-sm" role="alert">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+        <span>{{ session('error') }}</span>
+    </div>
+@endif
+
+@if (session('success'))
+    <div class="alert alert-success d-flex align-items-center shadow-sm" role="alert">
+        <i class="bi bi-check-circle-fill me-2"></i>
+        <span>{{ session('success') }}</span>
+    </div>
 @endif
 
 <form method="POST" action="{{ route('login') }}">
@@ -31,12 +45,9 @@
 
     <button class="btn btn-login w-100 mt-3"><b>Entrar</b></button>
 
-     <footer>
-        © {{ date('Y') }} Systex Sistemas Inteligentes<br>
-
+    <footer class="mt-4 text-center text-white-50">
+        © {{ date('Y') }} Systex Sistemas Inteligentes
     </footer>
 </form>
-
-
 
 @endsection

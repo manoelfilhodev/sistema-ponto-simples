@@ -1,0 +1,9 @@
+##Dentro do terminal
+
+cd "C:\Users\manoel.filho\mysql-8.0.43\bin"
+
+.\mysqld.exe
+
+.\mysql.exe -u root -p
+
+SenhaF0rte!

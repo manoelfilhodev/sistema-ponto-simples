@@ -11,21 +11,30 @@ class RegistroPontoController extends Controller
 {
     public function index(Request $request)
     {
-        $usuarios = User::orderBy('nome')->get();
+        $usuarios = User::orderBy('name')->get();
 
         $registros = Ponto::with('user')
+            ->when($request->usuario_id, fn ($q) =>
+                $q->where('user_id', $request->usuario_id)
+            )
+            ->when($request->tipo, fn ($q) =>
+                $q->where('tipo', $request->tipo)
+            )
+            ->when($request->data_inicio, fn ($q) =>
+                $q->whereDate('data_hora', '>=', $request->data_inicio)
+            )
+            ->when($request->data_fim, fn ($q) =>
+                $q->whereDate('data_hora', '<=', $request->data_fim)
+            )
             ->orderBy('data_hora', 'desc')
-            ->when($request->usuario_id, fn ($q) => $q->where('user_id', $request->usuario_id))
-            ->when($request->tipo, fn ($q) => $q->where('tipo', $request->tipo))
-            ->when($request->data_inicio, fn ($q) => $q->whereDate('data_hora', '>=', $request->data_inicio))
-            ->when($request->data_fim, fn ($q) => $q->whereDate('data_hora', '<=', $request->data_fim))
-            ->paginate(20);
+            ->paginate(20)
+            ->appends($request->query());
 
-        return view('painel.registros.index', compact('registros', 'usuarios'));
+        return view('registros.index', compact('registros', 'usuarios'));
     }
 
     public function show(Ponto $registro)
     {
-        return view('painel.registros.show', compact('registro'));
+        return view('registros.show', compact('registro'));
     }
 }

@@ -14,6 +14,7 @@ class Ponto extends Model
         'foto',
         'lat',
         'lng',
+        'localidade',
         'origem',
         'data_hora',
     ];

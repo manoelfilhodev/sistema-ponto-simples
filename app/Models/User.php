@@ -2,44 +2,36 @@
 
 namespace App\Models;
 
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use HasFactory, Notifiable;
 
-    protected $table = '_tb_users';
+    protected $table = 'users';
 
     protected $fillable = [
-        'nome',
-        'cpf',
+        'name',
         'email',
-        'senha',
-        'ativo',
-        'foto_face',
+        'password',
+        'cpf',
+        'cargo',
         'cliente_id',
+        'foto',
+        'ativo',
     ];
 
     protected $hidden = [
-        'senha', // esconder senha nas respostas
+        'password',
+        'remember_token',
     ];
 
-    // Laravel usa getAuthPassword para saber qual coluna é a senha
-    public function getAuthPassword()
-    {
-        return $this->senha;
-    }
-
-    // Relacionamento com Cliente
+    // 🔥 RELACIONAMENTO CORRETO
     public function cliente()
     {
-        return $this->belongsTo(Cliente::class, 'cliente_id');
-    }
-
-    // Relacionamento com Pontos
-    public function pontos()
-    {
-        return $this->hasMany(Ponto::class, 'user_id');
+        return $this->belongsTo(\App\Models\Cliente::class, 'cliente_id');
     }
 }
